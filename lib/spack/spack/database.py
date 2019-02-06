@@ -324,7 +324,8 @@ class Database(object):
                 if dhash not in data:
                     tty.warn("Missing dependency not in database: ",
                              "%s needs %s-%s" % (
-                                 spec.cformat('$_$/'), dname, dhash[:7]))
+                                 spec.cformat('{name}{/hash:7}'),
+                                 dname, dhash[:7]))
                     continue
 
                 child = data[dhash].spec

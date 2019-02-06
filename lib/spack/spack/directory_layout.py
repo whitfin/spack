@@ -167,15 +167,15 @@ class YamlDirectoryLayout(DirectoryLayout):
         self.metadata_dir   = kwargs.get('metadata_dir', '.spack')
         self.hash_len       = kwargs.get('hash_len')
         self.path_scheme    = kwargs.get('path_scheme') or (
-            "${ARCHITECTURE}/"
-            "${COMPILERNAME}-${COMPILERVER}/"
-            "${PACKAGE}-${VERSION}-${HASH}")
+            "{architecture}/"
+            "{compiler.name}-{compiler.version}/"
+            "{name}-{version}-{hash}")
         if self.hash_len is not None:
-            if re.search(r'\${HASH:\d+}', self.path_scheme):
+            if re.search(r'{hash:\d+}', self.path_scheme):
                 raise InvalidDirectoryLayoutParametersError(
                     "Conflicting options for installation layout hash length")
             self.path_scheme = self.path_scheme.replace(
-                "${HASH}", "${HASH:%d}" % self.hash_len)
+                "{hash}", "{hash:%d}" % self.hash_len)
 
         self.spec_file_name      = 'spec.yaml'
         self.extension_file_name = 'extensions.yaml'
